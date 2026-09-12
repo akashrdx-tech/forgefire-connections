@@ -5,6 +5,7 @@ import logo from "@/assets/logo.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { KeywordAlerts } from "@/components/KeywordAlerts";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -83,11 +84,14 @@ function KeywordTool() {
               <p className="text-[11px] text-muted-foreground">Keyword &amp; product intelligence</p>
             </div>
           </div>
-          <Button asChild variant="ghost" size="icon" aria-label="Settings">
-            <Link to="/settings">
-              <Settings className="h-5 w-5" />
-            </Link>
-          </Button>
+          <div className="flex items-center gap-1">
+            <KeywordAlerts />
+            <Button asChild variant="ghost" size="icon" aria-label="Settings">
+              <Link to="/settings">
+                <Settings className="h-5 w-5" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </header>
 
