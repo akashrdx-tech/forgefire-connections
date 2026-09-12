@@ -197,6 +197,7 @@ function KeywordTool() {
           </p>
         )}
       </main>
+      <InstallAppPrompt />
     </div>
   );
 }
