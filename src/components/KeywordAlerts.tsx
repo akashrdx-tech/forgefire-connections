@@ -3,6 +3,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { Bell, TrendingUp } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { setFaviconBadge } from "@/lib/favicon-badge";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -83,6 +84,10 @@ export function KeywordAlerts() {
       }),
     );
   }, [session?.user?.id]);
+
+  useEffect(() => {
+    setFaviconBadge(alerts.length);
+  }, [alerts.length]);
 
   useEffect(() => {
     void load();
