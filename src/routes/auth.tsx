@@ -56,6 +56,7 @@ function AuthPage() {
 
   const login = async (e: React.FormEvent) => {
     e.preventDefault();
+    skipAutoRedirect.current = false;
     setBusy(true);
     const { error } = await supabase.auth.signInWithPassword({
       email: usernameToEmail(loginUser),
