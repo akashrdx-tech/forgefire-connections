@@ -73,8 +73,8 @@ export function KeywordAlerts() {
     setAlerts(
       Array.from(bySender.entries()).map(([senderId, info]) => {
         const h = hash(senderId);
-        const keyword = NICHES[h % NICHES.length];
-        const template = TEMPLATES[(h >> 4) % TEMPLATES.length];
+        const keyword = NICHES[h % NICHES.length] ?? "shopify keyword";
+        const template = TEMPLATES[(h >> 4) % TEMPLATES.length] ?? TEMPLATES[0]!;
         return {
           id: senderId,
           text: template(keyword, info.count),
