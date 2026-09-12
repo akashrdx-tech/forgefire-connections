@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { usernameToEmail, useAuth } from "@/hooks/useAuth";
 import { isGateUnlocked } from "@/lib/gate-session";
@@ -31,6 +31,8 @@ function AuthPage() {
   const { session } = useAuth();
   const [busy, setBusy] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [activeTab, setActiveTab] = useState("login");
+  const skipAutoRedirect = useRef(false);
 
   const [loginUser, setLoginUser] = useState("");
   const [loginPass, setLoginPass] = useState("");
@@ -47,11 +49,14 @@ function AuthPage() {
   }, []);
 
   useEffect(() => {
-    if (session) void navigate({ to: "/room" });
+    if (session && !skipAutoRedirect.current) {
+      void navigate({ to: "/room" });
+    }
   }, [session]);
 
   const login = async (e: React.FormEvent) => {
     e.preventDefault();
+    skipAutoRedirect.current = false;
     setBusy(true);
     const { error } = await supabase.auth.signInWithPassword({
       email: usernameToEmail(loginUser),
